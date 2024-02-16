@@ -1,0 +1,14 @@
+{
+    "folders": [
+        {
+            "path": ".",
+            "name": "Hive Metastore"
+        }
+    ],
+    "settings": {
+        "notebook.formatOnSave.enabled": true,
+        "editor.tabSize": 4,
+        "editor.indentSize": 4,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}
