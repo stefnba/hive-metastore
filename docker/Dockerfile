@@ -16,11 +16,14 @@ ENV DATABASE_TYPE_JDBC=postgresql
 ENV DATABASE_PORT=5432
 
 WORKDIR /app
+ENV TEMPLATE_PATH "/app/template"
+
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       curl \
+      gettext \
       net-tools && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -55,6 +58,7 @@ RUN apt-get purge -y --auto-remove curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+COPY config/template ./template
 
 COPY scripts/config.sh .
 

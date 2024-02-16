@@ -9,8 +9,6 @@ services:
             - POSTGRES_DB
         healthcheck:
             test: ['CMD', 'psql', '-U', '${POSTGRES_USER}', '${POSTGRES_DB}']
-        ports:
-            - '5432:5432'
         volumes:
             - metastore-pg:/var/lib/postgresql/data/
 
@@ -19,8 +17,8 @@ services:
             context: .
             dockerfile: docker/Dockerfile
         depends_on:
-            metastore-pg:
-                condition: service_healthy
+            - metastore-pg
+                # condition: service_healthy
         environment:
             - DATABASE_HOST=metastore-pg
             - DATABASE_DB=${POSTGRES_DB}
@@ -45,6 +43,8 @@ services:
             - 9001:9001
             - 9000:9000
         command: ['server', '/data', '--console-address', ':9001']
+        volumes:
+            - minio-data:/data
         networks:
             default:
                 aliases:
@@ -54,4 +54,4 @@ services:
 
 volumes:
     metastore-pg:
-        name: 'metastore-pg'
+    minio-data:
